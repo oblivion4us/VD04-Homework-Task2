@@ -7,15 +7,24 @@
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Asset&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Asset&family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
   <style>
-    /* Панель навигации */
-    .nav-panel {
+    /* Фон для панели навигации */
+    .nav-background {
       position: fixed;
       top: 0;
       left: 0;
-      width: 180px;
+      width: 220px; /* 210px для панели + 10px отступов */
       height: 100vh;
+      background-color: #000000;
+      padding: 7px; /* Внутренний отступ для панели навигации */
+      box-sizing: border-box;
+    }
+
+    /* Панель навигации */
+    .nav-panel {
+      width: 210px;
+      height: 100%;
       background-color: #FF4500;
       display: flex;
       flex-direction: column;
@@ -27,8 +36,16 @@
     .nav-panel .nav-link {
       color: #ffffff;
       margin-bottom: 10px;
-      font-size: 18px;
-      font-weight: bold;
+      font-size: 16px;
+      font-family: "Unbounded", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: 700;
+      font-style: bold;
+      text-shadow:
+      -1px -1px 0 #000, /* левый верхний */
+      1px -1px 0 #000,  /* правый верхний */
+      -1px 1px 0 #000,  /* левый нижний */
+      1px 1px 0 #000;   /* правый нижний */
     }
     .nav-panel .nav-link:hover {
       color: #000000;
@@ -41,14 +58,19 @@
       margin-bottom: 20px;
     }
     .home-button img {
-      width: 180px;
+      width: 200px;
       height: auto;
       border-radius: 50%;
     }
     .home-button div {
-      font-size: 12px;
+      font-size: 14px;
       font-family: "Asset", serif;
       font-weight: 400;
+      text-shadow:
+      -1px -1px 0 #000, /* левый верхний */
+      1px -1px 0 #000,  /* правый верхний */
+      -1px 1px 0 #000,  /* левый нижний */
+      1px 1px 0 #000;   /* правый нижний */
     }
     .home-button:hover {
       color: #000000;
@@ -58,11 +80,11 @@
     .main-content {
       background-color: #000000;
       height: 100vh;
-      margin-left: 180px; /* Увеличен отступ для панели */
+      margin-left: 220px;
+      padding: 7px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      padding: 10px;
     }
 
     /* Настройки карусели */
@@ -70,35 +92,48 @@
       border: 3px solid white;
     }
     .carousel-item img {
-      height: 580px;
+      height: 583px;
       object-fit: cover;
     }
 
     /* Блок описания */
     .description {
+      display: flex;
+      justify-content: center; /* Центрирование по горизонтали */
+      align-items: center; /* Центрирование по вертикали */
+      height: 100%; /* Убедитесь, что высота блока определена */
+      margin-top: 10px;
       background-color: #FF4500;
       color: #ffffff;
       border: 3px solid white;
-      padding: 50px;
       text-align: center;
-      font-size: 18px;
+      font-size: 16px;
+      font-family: "Unbounded", sans-serif;
+      font-weight: 700;
+      font-style: bold;
+      text-shadow:
+      -1px -1px 0 #000, /* левый верхний */
+      1px -1px 0 #000,  /* правый верхний */
+      -1px 1px 0 #000,  /* левый нижний */
+      1px 1px 0 #000;   /* правый нижний */
     }
   </style>
 </head>
 <body>
-  <!-- Навигационная панель слева -->
+  <!-- Фон для панели навигации -->
+  <div class="nav-background">
+    <!-- Навигационная панель слева -->
   <div class="nav-panel">
     <a href="#home" class="home-button">
       <img src="/static/images/Loqi_Logo.png" alt="Home Icon">
       <div>LOQIEMEAN</div>
     </a>
-    <nav class="nav flex-column text-center">
-      <a class="nav-link" href="#about">Обо мне</a>
-      <a class="nav-link" href="#music">Музыка</a>
-      <a class="nav-link" href="#videos">Видео</a>
-      <a class="nav-link" href="#tour">Тур</a>
-      <a class="nav-link" href="#contact">Контакты</a>
-    </nav>
+      <nav class="nav flex-column text-center">
+        <a class="nav-link" href="#about">Об артисте</a>
+        <a class="nav-link" href="#music">Дискография</a>
+        <a class="nav-link" href="#contact">Контакты</a>
+      </nav>
+    </div>
   </div>
 
   <!-- Центральная секция -->
@@ -144,5 +179,4 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
-
 
