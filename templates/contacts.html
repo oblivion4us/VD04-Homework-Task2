@@ -96,25 +96,46 @@
       bottom: 10px;
     }
 
-    .background-video {
-      height: 730px;
-      width: auto;
-      box-sizing: border-box;
-      border: 3px solid white;
-      margin-left: 3px;
-      background-color: #000000;
+    /* Позиционирование видео-контейнера */
+    .video-container {
+      position: absolute;
+      left: 10px;
+      height: calc(100% - 10px); /* точная высота для совпадения */
     }
 
-    /* Контролы видео */
-    #videoControls {
-      display: flex;
+    /* Видео */
+    .background-video {
+      width: auto;
+      height: 770px;
+      object-fit: cover;
+      border: 3px solid white;
+    }
+
+    /* Кнопка звука */
+    .mute-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 10px;
+      background-color: rgba(0, 0, 0, 0.5);
+      border: none;
+      cursor: pointer;
+      display: none; /* Кнопка скрыта по умолчанию */
       align-items: center;
       justify-content: center;
-      margin-top: 10px;
     }
 
-    #videoControls button, #videoControls input {
-      margin: 0 5px;
+    /* Размер иконки */
+    .mute-icon {
+      width: 24px;
+      height: 24px;
+      fill: #ffffff;
+    }
+
+    /* Отображение кнопки при наведении на видео-контейнер */
+    .video-container:hover .mute-btn {
+      display: flex;
     }
 
     .contact-block h2 {
@@ -167,14 +188,20 @@
   </div>
 
   <div id="home" class="main-content">
-    <video autoplay loop muted playsinline class="background-video">
-       <source src="/static/images/IMG_0634.MP4" type="video/mp4">
-       Your browser does not support the video tag.
-     </video>
-    <div id="videoControls">
-      <button id="playPauseBtn">Плей</button>
-      <button id="muteBtn">Вкл/Выкл звук</button>
-      <input id="volumeSlider" type="range" min="0" max="1" step="0.1" value="1">
+    <div class="video-container">
+      <video autoplay loop muted playsinline class="background-video" id="backgroundVideo">
+        <source src="/static/images/IMG_0634.MP4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <button class="mute-btn" id="muteToggle">
+        <svg id="soundOnIcon" class="mute-icon" viewBox="0 0 24 24">
+          <path d="M3 10v4h4l5 5V5L7 10H3zm13.5 2c0-1.77-1.02-3.29-2.5-4.03v8.06c1.48-.74 2.5-2.26 2.5-4.03zm2.5 0c0 2.97-1.63 5.5-4 6.92l1.5 1.5C18.99 19.54 21 15.97 21 12s-2.01-7.54-5-8.42l-1.5 1.5c2.37 1.41 4 3.94 4 6.92z"/>
+        </svg>
+        <svg id="soundOffIcon" class="mute-icon" viewBox="0 0 24 24" style="display: none;">
+          <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.06c1.48-.74 2.5-2.26 2.5-4.03zm2.5 0c0 2.97-1.63 5.5-4 6.92l1.5 1.5C18.99 19.54 21 15.97 21 12s-2.01-7.54-5-8.42l-1.5 1.5c2.37 1.41 4 3.94 4 6.92z"/>
+          <path d="M3 10v4h4l5 5V5L7 10H3zm18.7 10.29L2.71 3.29 1.39 4.71 5.7 9.03 3 10v4h4l5 5v-6.97l7.11 7.11 1.41-1.42z"/>
+        </svg>
+      </button>
     </div>
     <div class="contact-block">
       <h2>Контакты Loqiemean</h2>
@@ -192,29 +219,23 @@
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
   <script>
-    const video = document.getElementById('myVideo');
-    const playPauseBtn = document.getElementById('playPauseBtn');
-    const muteBtn = document.getElementById('muteBtn');
-    const volumeSlider = document.getElementById('volumeSlider');
+    const video = document.getElementById('backgroundVideo');
+    const muteToggle = document.getElementById('muteToggle');
+    const soundOnIcon = document.getElementById('soundOnIcon');
+    const soundOffIcon = document.getElementById('soundOffIcon');
 
-    playPauseBtn.addEventListener('click', () => {
-      if (video.paused || video.ended) {
-        video.play();
-        playPauseBtn.textContent = 'Пауза';
-      } else {
-        video.pause();
-        playPauseBtn.textContent = 'Плей';
-      }
-    });
-
-    muteBtn.addEventListener('click', () => {
+    muteToggle.addEventListener('click', () => {
       video.muted = !video.muted;
-      muteBtn.textContent = video.muted ? 'Вкл звук' : 'Выкл звук';
-    });
-
-    volumeSlider.addEventListener('input', (event) => {
-      video.volume = event.target.value;
+      if (video.muted) {
+        soundOnIcon.style.display = 'none';
+        soundOffIcon.style.display = 'block';
+      } else {
+        soundOnIcon.style.display = 'block';
+        soundOffIcon.style.display = 'none';
+      }
     });
   </script>
 </body>
 </html>
+
+
